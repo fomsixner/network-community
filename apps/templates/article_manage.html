@@ -1,0 +1,63 @@
+{% extends "user_center.html" %}
+
+{% block article_manage %}
+<div class="col-md-10">
+    <form class="form" method="POST">
+        <h1 class="h3 mb-3 font-weight-normal text-center">我的文章</h1>
+        <hr>
+        <div class="form-group row">
+            <button id="published" type="button" class="btn btn-outline-info btn-sm col-md-1">已发布</button>
+            <button id="draft" type="button" class="btn btn-outline-info btn-sm col-md-1">草稿箱</button>
+            <button id="newarticle" type="button" class="btn btn-outline-info btn-sm col-md-1">新建</button>
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for item in articles %}
+                <li class="list-group-item list-inline">
+                    <div id="title" style="color: crimson" class="col-md-10">
+                        <a href="{{ url_for("article_broswer", id=item.articleID) }}">{{ item.title }}</a>
+                    </div>
+                    <div id="time" align="right">{{ item.time }}</div>
+                </li>
+            {% endfor %}
+        </ul>
+        <br>
+        {% import "paginate.html" as paginate %}
+        {{ paginate.fenye(pagination, "published") }}
+
+    </form>
+</div>
+{% endblock %}
+
+{% block jscode %}
+    <script>
+    $(document).ready(
+        function () {
+            $("#item-1").addClass('list-group-item-success')
+        }
+    );
+
+    $("#published").click(
+        function () {
+            location.href="{{ url_for("published") }}"
+        }
+    );
+
+    $("#draft").click(
+        function () {
+            location.href="{{ url_for("draft") }}"
+        }
+    );
+
+    $("#newarticle").click(
+        function () {
+            location.href="{{ url_for("newarticle") }}"
+        }
+    );
+    $(document).ready(
+        function () {
+            $("#published").addClass('active')
+        }
+    )
+    </script>
+{% endblock %}
+

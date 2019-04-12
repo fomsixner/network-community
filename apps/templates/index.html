@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for message in get_flashed_messages(category_filter=['error']) %}
+        <h3>{{ message }}</h3>
+    {% endfor %}
+    {% for message in get_flashed_messages(category_filter=['ok']) %}
+        <h3>{{ message }}</h3>
+    {% endfor %}
+
+    <ul class="list-group list-group-flush">
+        {% for item in articles %}
+            <li class="list-group-item list-inline">
+                <div id="title" style="color: crimson">
+                    <a href="{{ url_for("article_broswer", id=item.articleID) }}">{{ item.title }}</a>
+                </div>
+                <div class="row offset-md-6">
+                    作者:{{ item.author }}
+                    时间:{{ item.time }}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <br>
+    {% import "paginate.html" as paginate %}
+    {{ paginate.fenye(pagination, "index") }}
+
+{% endblock %}
+
+{% block jscode %}
+    <script>
+    $(document).ready(
+        function () {
+            $("#nav-1").addClass('active')
+        }
+    )
+    </script>
+{% endblock %}

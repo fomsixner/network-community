@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="jumbotron text-center" style="padding: 10px 20px">
+        <h2>{{ session.get("username") }}的个人中心</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <ul class="list-group">
+                <li id="item-1" class="list-group-item text-center">
+                    <a href="{{ url_for("published") }}">文章管理</a>
+                </li>
+                <li id="item-2" class="list-group-item text-center">
+                    <a href="{{ url_for("my_favorite") }}">我的收藏</a>
+                </li>
+                <li id="item-3" class="list-group-item text-center">
+                    <a href="{{ url_for("my_comment") }}">我的评论</a>
+                </li>
+                <li id="item-4" class="list-group-item text-center">
+                    <a href="{{ url_for("my_thumpup") }}">我的点赞</a>
+                </li>
+                <li id="item-5" class="list-group-item text-center">
+                    <a href="{{ url_for("visitors_cal") }}">访客统计</a>
+                </li>
+                <li id="item-6" class="list-group-item text-center">
+                    <a href="{{ url_for("user_info") }}">个人资料</a>
+                </li>
+                <li id="item-7" class="list-group-item text-center">
+                    <a href="{{ url_for("resetpassword") }}">修改密码</a>
+                </li>
+            </ul>
+        </div>
+        {% block article_manage %}
+        {% endblock %}
+
+        {% block my_favorite %}
+        {% endblock %}
+
+        {% block my_comment %}
+        {% endblock %}
+
+        {% block my_thumpup %}
+        {% endblock %}
+
+        {% block visitors_cal %}
+        {% endblock %}
+
+        {% block user_info %}
+        {% endblock %}
+
+        {% block resetpassword %}
+        {% endblock %}
+
+    </div>
+
+{% endblock %}
+
+
+{% block jscode %}
+    <script>
+    $(document).ready(
+        function () {
+            $("#nav-8").addClass('active')
+        }
+    )
+    </script>
+{% endblock %}
+

@@ -1,0 +1,48 @@
+{% macro fenye(page_data, page_function) %}
+    <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="{{ url_for(page_function, page=1) }}">首页</a></li>
+        {% if page_data.has_prev %}
+            <li class="page-item"><a class="page-link" href="{{ url_for(page_function, page=page_data.prev_num) }}">«</a></li>
+        {% endif %}
+        {% for page in page_data.iter_pages() %}
+            {% if page %}
+                {% if page !=page_data.page %}
+                    <li class="page-item"><a class="page-link" href="{{ url_for(page_function, page=page) }}">{{ page }}</a></li>
+                {% else %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ page }}</a></li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% if page_data.has_next %}
+            <li class="page-item"><a class="page-link" href="{{ url_for(page_function, page=page_data.next_num) }}">»</a></li>
+        {% endif %}
+        <li class="page-item"><a class="page-link" href="{{ url_for(page_function, page=page_data.pages) }}">末页</a></li>
+    </ul>
+    </nav>
+{% endmacro %}
+
+<!--评论分页-->
+{% macro commentfenye(page_data, article_id, page_function) %}
+    <nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="{{ url_for(page_function, id=article_id, page=1) }}">首页</a></li>
+        {% if page_data.has_prev %}
+            <li class="page-item"><a class="page-link" href="{{ url_for(page_function, id=article_id, page=page_data.prev_num) }}">«</a></li>
+        {% endif %}
+        {% for page in page_data.iter_pages() %}
+            {% if page %}
+                {% if page !=page_data.page %}
+                    <li class="page-item"><a class="page-link" href="{{ url_for(page_function, id=article_id, page=page) }}">{{ page }}</a></li>
+                {% else %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ page }}</a></li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% if page_data.has_next %}
+            <li class="page-item"><a class="page-link" href="{{ url_for(page_function, id=article_id, page=page_data.next_num) }}">»</a></li>
+        {% endif %}
+        <li class="page-item"><a class="page-link" href="{{ url_for(page_function, id=article_id, page=page_data.pages) }}">末页</a></li>
+    </ul>
+    </nav>
+{% endmacro %}

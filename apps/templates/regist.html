@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for message in get_flashed_messages(category_filter=['error']) %}
+        <h3>{{ message }}</h3>
+    {% endfor %}
+<form role="form" method="post" class="col-md-6 offset-md-3">
+    <h1 class="h3 mb-3 font-weight-normal text-center">请注册</h1>
+    <div class="form-group row">
+        <label for="user_name" class="col-md-4">{{ form.user_name.label }}</label>
+        {{ form.user_name }}
+    </div>
+    {% for err in form.user_name.errors %}
+        <p>{{ err }}</p>
+    {% endfor %}
+    <div class="form-group row">
+        <label for="user_password" class="col-md-4">{{ form.user_password.label }}</label>
+        {{ form.user_password }}
+    </div>
+    {% for err in form.user_password.errors %}
+        <p>{{ err }}</p>
+    {% endfor %}
+    <div class="form-group row">
+        <label for="verify_password" class="col-md-4">{{ form.verify_password.label }}</label>
+        {{ form.verify_password }}
+    </div>
+    {% for err in form.verify_password.errors %}
+        <p>{{ err }}</p>
+    {% endfor %}
+    <div class="form-group row">
+        <label for="user_email" class="col-md-4">{{ form.user_email.label }}</label>
+        {{ form.user_email }}
+    </div>
+    {% for err in form.user_email.errors %}
+        <p>{{ err }}</p>
+    {% endfor %}
+    <div class="form-group row">
+        <label for="verification_code" class="col-md-4">{{ form.verification_code.label }}</label>
+        {{ form.verification_code }}
+        <button id="get_verification_code" type="button" class="btn btn-group">获取验证码</button>
+    </div>
+    {% for err in form.verification_code.errors %}
+        <p>{{ err }}</p>
+    {% endfor %}
+    <div class="form-group">
+        {{ form.csrf_token }}
+        {{ form.submit }}
+    </div>
+</form>
+{% endblock %}
+
+{% block jscode %}
+    <script>
+    $(document).ready(
+        function () {
+            $("#nav-11").addClass('active')
+        }
+    );
+
+    $("#get_verification_code").click(
+        function () {
+            var email_addr = $("#user_email").val();
+            var data = {
+                data: JSON.stringify({
+                    "email_addr": email_addr
+                })
+            };
+            $.ajax({
+                url: "/get_verification_code",
+                type: "POST",
+                data: data
+            }).done(function (data) {
+                if(data==="100"){
+                    alert("邮箱格式错误");
+                }
+                else {
+                    alert("验证码发送成功");
+                }
+            })
+    });
+    </script>
+{% endblock %}
+

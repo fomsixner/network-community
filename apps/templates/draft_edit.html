@@ -1,0 +1,145 @@
+{% extends "user_center.html" %}
+
+{% block article_manage %}
+<div class="col-md-10">
+    <form class="form" method="POST">
+        <h1 class="h3 mb-3 font-weight-normal text-center">我的文章</h1>
+        <hr>
+        <div class="form-group row">
+            <button id="published" type="button" class="btn btn-outline-info btn-sm col-md-1">已发布</button>
+            <button id="draft" type="button" class="btn btn-outline-info btn-sm col-md-1">草稿箱</button>
+            <button id="newarticle" type="button" class="btn btn-outline-info btn-sm col-md-1">新建</button>
+        </div>
+        <div class="form-group row">
+            <label for="article_title" class="col-md-2">请输入标题</label>
+            <input class="form-control col-md-8" id="article_title" name="article_title" type="text" value="{{ draft.title }}">
+        </div>
+        <div class="form-group row">
+            <label for="article_tag" class="col-md-2">请选择标签</label>
+            <label class="radio-inline col-md-1">
+                <input type="radio" value="event" name="fenlei" {% if draft.tag == "event" %} checked {% endif %}>时事
+            </label>
+            <label class="radio-inline col-md-1">
+                <input type="radio" value="entertainment" name="fenlei" {% if draft.tag == "entertainment" %} checked {% endif %}>娱乐
+            </label>
+            <label class="radio-inline col-md-1">
+                <input type="radio" value="life" name="fenlei" {% if draft.tag == "life" %} checked {% endif %}>生活
+            </label>
+            <label class="radio-inline col-md-1">
+                <input type="radio" value="science" name="fenlei" {% if draft.tag == "science" %} checked {% endif %}>科技
+            </label>
+            <label class="radio-inline col-md-1">
+                <input type="radio" value="trip" name="fenlei" {% if draft.tag == "trip" %} checked {% endif %}>旅游
+            </label>
+            <p id="message" style="color: #ff0000;"></p>
+        </div>
+        <textarea id="summernote" name="editor">{{ draft.context | safe }}</textarea>
+        <br>
+        <div class="form-group row">
+            <button id="save" type="button" class="btn btn-secondary offset-md-5">保存</button>
+            <button id="submit" type="button" class="btn btn-success">提交</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block jscode %}
+    <script>
+    $(document).ready(
+        function () {
+            $("#item-1").addClass('list-group-item-success');
+            $('#summernote').summernote({
+                tabsize: 2,
+                height: 400
+            });
+        }
+    );
+
+    $("#published").click(
+        function () {
+            location.href="{{ url_for("published") }}"
+        }
+    );
+
+    $("#draft").click(
+        function () {
+            location.href="{{ url_for("draft") }}"
+        }
+    );
+
+    $("#newarticle").click(
+        function () {
+            location.href="{{ url_for("newarticle") }}"
+        }
+    );
+
+    $("#save").click(function() {
+        var title = $("#article_title").val();
+        var tag = $("input[type=radio][name=fenlei]:checked").val();
+        var id = "{{ draft.articleID | safe }}";
+        var content = $("#summernote").val();
+        var data = {
+            data : JSON.stringify({
+                "title": title,
+                "tag": tag,
+                "content": content,
+                "id": id
+            })
+        };
+        $.ajax({
+            url: "/draft_save",
+            type: "POST",
+            data: data
+        }).done(function (data) {
+            if(data==="100"){
+                $("#article_title").after("<p style='color: #ff0000;'>请输入标题<p>")
+            }
+            else if(data==="200"){
+                $("#message").append("请选择标签")
+            }
+            else if(data==="300"){
+                $("#submit").after("<p class='offset-md-2' style='color: #ff0000;'>未输入内容<p>")
+            }
+            else{
+                alert("保存成功")
+            }
+        })
+    });
+
+    $("#submit").click(function() {
+        var title = $("#article_title").val();
+        var id = "{{ draft.articleID | safe }}";
+        var tag = $("input[type=radio][name=fenlei]:checked").val();
+        var content = $("#summernote").val();
+        var data = {
+            data : JSON.stringify({
+                "title": title,
+                "tag": tag,
+                "content": content,
+                "id": id
+            })
+        };
+        $.ajax({
+            url: "/draft_submit",
+            type: "POST",
+            data: data
+        }).done(function (data) {
+            if(data==="100"){
+                $("#article_title").after("<p style='color: #ff0000;'>请输入标题<p>")
+            }
+            else if(data==="200"){
+                $("#message").append("请选择标签")
+            }
+            else if(data==="300"){
+                $("#submit").after("<p class='offset-md-2' style='color: #ff0000;'>未输入内容<p>")
+            }
+            else{
+                alert("提交成功")
+            }
+        })
+    });
+
+
+    </script>
+{% endblock %}
+

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for message in get_flashed_messages(category_filter=['error']) %}
+        <h3>{{ message }}</h3>
+    {% endfor %}
+    {% for message in get_flashed_messages(category_filter=['ok']) %}
+        <h3>{{ message }}</h3>
+    {% endfor %}
+    <form role="form" method="post" class="form-signin" style="margin: 0 auto; padding: 15px; max-width: 330px; width: 100%">
+        <h1 class="h3 mb-3 font-weight-normal text-center">请登录</h1>
+        <label for="inputAccount" class="sr-only">用户名</label>
+        <input type="text" id="inputAccount" name="inputAccount" class="form-control"
+             value="{{ request.args.account }}" placeholder="User Account" required autofocus>
+        <label for="inputPassword" class="sr-only">密码</label>
+        <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="row mb-3" style="margin: 0 auto;">
+            <div class="checkbox">
+                <label>
+                     <input type="checkbox" value="remember-me"> 记住我
+                </label>
+            </div>
+            <a href="{{ url_for("forget_pwd") }}" class="offset-md-5">忘记密码？</a>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+    </form>
+
+{% endblock %}
+
+{% block jscode %}
+    <script>
+    $(document).ready(
+        function () {
+            $("#nav-10").addClass('active')
+        }
+    )
+    </script>
+{% endblock %}
+

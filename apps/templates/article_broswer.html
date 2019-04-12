@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div align="center">
+        <h2>{{ article.title }}</h2>
+        <p>作者: {{ article.author }}    时间: {{ article.time }}</p>
+    </div>
+    <!--safe 转义为html-->
+    {{ article.context | safe }}
+    <br>
+    <p align="right">阅读量: {{ article.read }}</p>
+    <hr>
+    <div id="comment">
+        <form class="form" method="POST">
+            <div class="form-group row form-inline">
+                <button id="favorite" type="button" class="btn btn-outline-dark btn-sm">收藏</button>
+                <button id="thump_up" type="button" class="btn btn-outline-dark btn-sm">点赞</button>
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">评论</span>
+                </div>
+                <textarea id="comment_text" class="form-control" aria-label="评论"></textarea>
+                <button id="comment_submit" type="button" class="btn btn-info">提交</button>
+            </div>
+            <p id="message" style="color: #4a54ff;" align="center"></p>
+        </form>
+        <br>
+        <h5>所有评论</h5>
+        <ul class="list-group list-group-flush">
+            {% for item in comments %}
+            <li class="list-group-item list-inline">
+                <div id="comment_user_name" style="color: crimson">{{ item.userName }}</div>
+                <div id="comment_context" class="offset-md-2">{{ item.context }}</div>
+                <div id="comment_time" align="right" style="color: #4a54ff">{{ item.time }}</div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+
+{% block jscode %}
+<script>
+$(document).ready(
+        function () {
+            if ("{{ is_thump_up | safe}}" === "1"){
+                $("#thump_up").addClass("active");
+            }
+            if("{{ is_favorite | safe }}" === "1"){
+                $("#favorite").addClass("active");
+            }
+        }
+    );
+
+
+$("#comment_submit").click(
+    function() {
+        var articleid = "{{ article.articleID | safe}}";
+        var context = $("#comment_text").val();
+        var title = "{{ article.title | safe }}";
+        var data = {
+            data : JSON.stringify({
+                "articleid" : articleid,
+                "context" : context,
+                "title" : title
+            })
+        };
+        $.ajax({
+            url: "/comment_submit",
+            type: "POST",
+            data: data
+        }).done(function (data) {
+            if(data==="100"){
+                $("#message").append("请输入评论");
+            }
+            else if(data==="200"){
+                $("#message").append("提交成功！");
+                location.reload();
+            }
+        })
+    });
+
+$("#favorite").click(
+    function () {
+        var articleid = "{{ article.articleID | safe}}";
+        var title = "{{ article.title | safe }}";
+        var status = 1;
+        if("{{ is_favorite }}" === "0"){
+            status = 0;
+        }
+        var data = {
+            data : JSON.stringify({
+                "articleid" : articleid,
+                "status" : status,
+                "title" : title
+            })
+        };
+        $.ajax({
+            url: "/new_favorite",
+            type: "POST",
+            data: data
+        }).done(function (data) {
+            if(data==="100"){
+                $("#favorite").addClass("active");
+            }
+            location.reload();
+        })
+});
+
+$("#thump_up").click(
+    function () {
+        var articleid = "{{ article.articleID | safe}}";
+        var title = "{{ article.title | safe }}";
+        var status = 1;
+        if("{{ is_thump_up }}" === "0"){
+            status = 0;
+        }
+        var data = {
+            data : JSON.stringify({
+                "articleid" : articleid,
+                "status" : status,
+                "title" : title
+            })
+        };
+        $.ajax({
+            url: "/new_thump_up",
+            type: "POST",
+            data: data
+        }).done(function (data) {
+            if(data==="100"){
+                $("#thump_up").addClass("active");
+            }
+            location.reload()
+        })
+});
+
+
+</script>
+
+{% endblock %}

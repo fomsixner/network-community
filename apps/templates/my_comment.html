@@ -1,0 +1,28 @@
+{% extends "user_center.html" %}
+
+{% block my_comment %}
+    <div class="col-md-10">
+        <ul class="list-group list-group-flush">
+            {% for item in comments %}
+                <li class="list-group-item list-inline">
+                    <div id="title" style="color: crimson">{{ item.title }}</div>
+                    <div id="context" class="offset-md-1">{{ item.context }}</div>
+                    <div id="time" align="right">{{ item.time }}</div>
+                </li>
+            {% endfor %}
+        </ul>
+        <br>
+        {% import "paginate.html" as paginate %}
+        {{ paginate.fenye(pagination, "my_comment") }}
+    </div>
+{% endblock %}
+
+{% block jscode %}
+    <script>
+    $(document).ready(
+        function () {
+            $("#item-3").addClass('list-group-item-success')
+        }
+    )
+    </script>
+{% endblock %}
