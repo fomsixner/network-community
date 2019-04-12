@@ -113,7 +113,7 @@ flask+bootstrap开发的网络社区
 
 > #### 1.登录
 >
-> ![1554991894075](\Typora\typora-user-images\1554991894075.png)
+> ![1554991894075](./Typora/typora-user-images/1554991894075.png)
 >
 > #### 2.注册
 >
