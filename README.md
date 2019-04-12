@@ -113,11 +113,11 @@ flask+bootstrap开发的网络社区
 
 > #### 1.登录
 >
-> ![1554991894075](C:\Users\1745934906\AppData\Roaming\Typora\typora-user-images\1554991894075.png)
+> ![1554991894075](\Typora\typora-user-images\1554991894075.png)
 >
 > #### 2.注册
 >
-> ![1554991913585](C:\Users\1745934906\AppData\Roaming\Typora\typora-user-images\1554991913585.png)
+> ![1554991913585](\typora-user-images\1554991913585.png)
 >
 > 注册时提供了邮箱验证服务
 >
@@ -125,49 +125,49 @@ flask+bootstrap开发的网络社区
 >
 > ##### 创建文章
 >
-> ![1554992258754](C:\Users\1745934906\AppData\Roaming\Typora\typora-user-images\1554992258754.png)
+> ![1554992258754](\typora-user-images\1554992258754.png)
 >
 > 文章编辑采用富文本编辑器summernote
 >
 > ##### 文章管理
 >
-> ![1554992295468](C:\Users\1745934906\AppData\Roaming\Typora\typora-user-images\1554992295468.png)
+> ![1554992295468](\typora-user-images\1554992295468.png)
 >
 > ##### 收藏管理
 >
-> ![1554992372743](C:\Users\1745934906\AppData\Roaming\Typora\typora-user-images\1554992372743.png)
+> ![1554992372743](\typora-user-images\1554992372743.png)
 >
 > ##### 评论管理
 >
-> ![1554992494482](C:\Users\1745934906\AppData\Roaming\Typora\typora-user-images\1554992494482.png)
+> ![1554992494482](\typora-user-images\1554992494482.png)
 >
 > ##### 点赞管理
 >
-> ![1554992519379](C:\Users\1745934906\AppData\Roaming\Typora\typora-user-images\1554992519379.png)
+> ![1554992519379](\typora-user-images\1554992519379.png)
 >
 > ##### 个人资料
 >
-> ![1554992542548](C:\Users\1745934906\AppData\Roaming\Typora\typora-user-images\1554992542548.png)
+> ![1554992542548](\typora-user-images\1554992542548.png)
 >
 > ##### 密码修改
 >
-> ![1554992562928](C:\Users\1745934906\AppData\Roaming\Typora\typora-user-images\1554992562928.png)
+> ![1554992562928](\typora-user-images\1554992562928.png)
 >
 > #### 4.浏览文章
 >
 > ##### 首页
 >
-> ![1554992617538](C:\Users\1745934906\AppData\Roaming\Typora\typora-user-images\1554992617538.png)
+> ![1554992617538](\typora-user-images\1554992617538.png)
 >
 > ##### 浏览、评论、收藏、点赞
 >
-> ![1554992649587](C:\Users\1745934906\AppData\Roaming\Typora\typora-user-images\1554992649587.png)
+> ![1554992649587](\typora-user-images\1554992649587.png)
 >
 > #### 5.密码找回
 >
-> ![1554992736246](C:\Users\1745934906\AppData\Roaming\Typora\typora-user-images\1554992736246.png)
+> ![1554992736246](\typora-user-images\1554992736246.png)
 >
-> ![1554992800420](C:\Users\1745934906\AppData\Roaming\Typora\typora-user-images\1554992800420.png)
+> ![1554992800420](\typora-user-images\1554992800420.png)
 
 
 
